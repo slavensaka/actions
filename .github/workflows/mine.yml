@@ -22,7 +22,7 @@ jobs:
           #check if the PR title has a JIRA ticket number at the beginning
           #jira_pattern="[A-Z]+\-[0-9]+"
           jira_pattern="[0-9]+"
-          if [[ $pr_title =~ ^$jira_pattern ]]; then
+          if [[ $pr_number =~ ^$jira_pattern ]]; then
             jira_ticket="${BASH_REMATCH[0]}"
             jira_link="https://ecoonline.atlassian.net/browse/${jira_ticket}"
           else
