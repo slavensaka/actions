@@ -29,9 +29,7 @@ jobs:
             jira_link=""
           fi
 
-
-          star_symbol=$(echo '*')
-          echo $star_symbol
-
-          changelog_entry="'*' [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
+          changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
           echo ${changelog_entry}
+
+          sed 'Development/bar/g' CHANGELOG.md
