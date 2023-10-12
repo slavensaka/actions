@@ -1,0 +1,21 @@
+name: Update that CHANGELOG
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types: [closed]
+env:
+  MY_NAME_IS: SLAVEN S.
+jobs:
+  update_changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Initial Stuff done
+        run: |
+          pr_number=$(echo "${{ github.event.pull_request.url }}" | cut -d / -f 7)
+          pr_title="${{ github.event.pull_request.title }}"
+          echo "$MY_NAME_IS"
+          echo ${pr_number}
+          echo ${pr_title}

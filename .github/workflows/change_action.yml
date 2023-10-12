@@ -8,7 +8,6 @@ on:
 jobs:
   update_changelog:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         #with:
@@ -16,11 +15,12 @@ jobs:
 
       - name: Add entry to CHANGELOG
         run: |
-          # get the PR number and title
+          #get the PR number and title
+
           pr_number=$(echo "${{ github.event.pull_request.url }}" | cut -d / -f 7)
           pr_title="${{ github.event.pull_request.title }}"
           
-          # check if the PR title has a JIRA ticket number at the beginning
+          #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[A-Z]+\-[0-9]+"
           if [[ $pr_title =~ ^$jira_pattern ]]; then
             jira_ticket="${BASH_REMATCH[0]}"
