@@ -16,23 +16,18 @@ jobs:
         run: |
           pr_pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
           pr_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
-          echo $pr_pod_name
-          echo $pr_number
+
 
           #check if the PR title has a JIRA ticket number at the beginning
           #jira_pattern="[A-Z]+\-[0-9]+"
           jira_pattern="[0-9]+"
           if [[ $pr_number =~ ^$jira_pattern ]]; then
             jira_ticket="${BASH_REMATCH[0]}"
-            jira_link="https://ecoonline.atlassian.net/browse/${pr_pod_name}${jira_ticket}"
+            jira_link="https://ecoonline.atlassian.net/browse/${pr_pod_name}-${jira_ticket}"
 
           else
             jira_link=""
           fi
-          # echo ${jira_link}
 
-          echo ${{ github.event.pull_request.html_url }}
-          changelog_entry="* [["FEA/${pr_number-${jira_ticket}}"]](${jira_link})"
-          # ${pr_title}"
-
+          changelog_entry="* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
           echo ${changelog_entry}
