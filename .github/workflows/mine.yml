@@ -35,3 +35,10 @@ jobs:
 
 
           printf sed '/## Development/a\newly added line' CHANGELOG.md > CHANGELOG.md.new
+
+          mv CHANGELOG.md.new CHANGELOG.md
+          git add CHANGELOG.md
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update CHANGELOG for PR #${pr_number}"
+          git push
