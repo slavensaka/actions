@@ -1,4 +1,4 @@
-name: Update that CHANGELOG
+name: MINE OH MINE
 on:
   pull_request:
     branches:
@@ -19,7 +19,7 @@ jobs:
           # pr_title="${{ github.event.pull_request.title }}"
           # echo "apple;banana;cherry" | cut -d ';' -f 1
           # echo "$MY_NAME_IS"
-          echo ${PR_TITLE}
-          echo ${PR_URL}
-          PR_NUMBER = $(PR_TITLE | cut -d / -f 2)
+          echo $PR_TITLE
+          echo $PR_URL
+          PR_NUMBER = ($PR_TITLE | cut -d / -f 2)
           echo PR_NUMBER
