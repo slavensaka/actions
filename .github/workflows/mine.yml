@@ -34,7 +34,7 @@ jobs:
 
 
 
-          sed '/## Development/a\newly added line' CHANGELOG.md > CHANGELOG.md.new
+          sed '/## Development/a\newly added line' > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
