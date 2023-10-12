@@ -24,9 +24,15 @@ jobs:
           jira_pattern="[0-9]+"
           if [[ $pr_number =~ ^$jira_pattern ]]; then
             jira_ticket="${BASH_REMATCH[0]}"
-            jira_link="https://ecoonline.atlassian.net/browse/${jira_ticket}"
+            jira_link="https://ecoonline.atlassian.net/browse/${pr_pod_name}${jira_ticket}"
+
           else
             jira_link=""
           fi
-          echo ${jira_link}
+          # echo ${jira_link}
 
+          echo ${{ github.event.pull_request.html_url }}
+          changelog_entry="* [["FEA/${pr_number-${jira_ticket}}"]](${jira_link})"
+          # ${pr_title}"
+
+          echo changelog_entry
