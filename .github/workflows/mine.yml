@@ -35,4 +35,4 @@ jobs:
           changelog_entry="* [["FEA/${pr_number-${jira_ticket}}"]](${jira_link})"
           # ${pr_title}"
 
-          echo changelog_entry
+          echo ${changelog_entry}
