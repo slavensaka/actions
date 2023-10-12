@@ -18,10 +18,7 @@ jobs:
           pr_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
           echo $pr_pod_name
           echo $pr_number
-          echo "${BASH_REMATCH[0]}"
 
-          test_pr_number=$(echo "${{ BASH_REMATCH[0] }}" | cut -d '-' -f 2)
-          echo $test_pr_number
           #check if the PR title has a JIRA ticket number at the beginning
           #jira_pattern="[A-Z]+\-[0-9]+"
           jira_pattern="[0-9]+"
