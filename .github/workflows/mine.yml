@@ -29,5 +29,9 @@ jobs:
             jira_link=""
           fi
 
-          changelog_entry="/* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
+
+          star_symbol=$(echo '*')
+          echo $star_symbol
+
+          changelog_entry="'*' [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
           echo ${changelog_entry}
