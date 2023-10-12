@@ -29,5 +29,5 @@ jobs:
             jira_link=""
           fi
 
-          changelog_entry="* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
+          changelog_entry="/* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
           echo ${changelog_entry}
