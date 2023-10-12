@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: changelog  # specify the branch to checkout
+      - uses: actions/checkout@v3
+        #with:
+          #ref: changelog  # specify the branch to checkout
 
       - name: Add entry to CHANGELOG
         run: |
