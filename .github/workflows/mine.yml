@@ -32,9 +32,7 @@ jobs:
           changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
           echo ${changelog_entry}
 
-
-
-          sed '/## Development/a\newly added line' > CHANGELOG.md.new
+          sed '/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;iNew line to be inserted' CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
