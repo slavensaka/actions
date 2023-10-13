@@ -35,6 +35,12 @@ jobs:
           first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}')
           second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}')
 
+          echo type_of_PR
+          echo second_half
+          echo pr_branch_name
+          echo first
+          echo second
+
           if [ $first == "FEA" ]; then
             if [[ -z $second ]]; then
               echo "SECOND IS EMPTY"
