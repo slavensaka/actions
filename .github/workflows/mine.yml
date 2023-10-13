@@ -5,6 +5,14 @@ on:
       - main
       - develop
     types: [closed]
+  push:
+    branches:
+      - main
+      - FEA/BE-233
+      - FEA/BE-233-some
+      - BE-233-some
+      - ESR/BE-233
+      - HOT/BE-233
 env:
   SLAV : Slaven
   PR_NUMBER: ${{ github.event.number }}
@@ -23,32 +31,19 @@ jobs:
           second_half=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
 
           pr_branch_name=${{github.event.pull_request.head.ref}}
-          echo $t
-
-          echo "SHOULD BE EMPTY"
-          echo $type_of_PR
-          echo $second_half
 
           first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}')
           second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}')
 
-          echo $first
-          echo $second
-
           if [ $first == "FEA" ]; then
-          # if [ $first == "FEA" ] && [ $pr_branch_name != "${VALUE}" ]; then
-
             if [[ -z $second ]]; then
               echo "SECOND IS EMPTY"
             fi
-
             example=$first
           else
             example="FIRST ISNT FOUND"
           fi
           echo $example
-
-
 
 
           #check if the PR title has a JIRA ticket number at the beginning
