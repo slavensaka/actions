@@ -27,12 +27,11 @@ jobs:
           echo $second_half
 
 
-          if [[ $type_of_PR == "FEA" ]]; then
-            example= "FEA"
+          if [[$type_of_PR=="FEA"]]; then
+            example="FEA"
           else
-            example= "IT'S EMPTY"
+            example="IT'S EMPTY"
           fi
-
           echo $example
 
           #check if the PR title has a JIRA ticket number at the beginning
