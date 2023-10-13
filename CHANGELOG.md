@@ -33,6 +33,7 @@
 ## 8.1.11
 ### Added
 New line to be inserted
+${first_changelog_entry}31
 
 ### Fixed
 * [[HOT/BE-1368]](https://dcm-team.atlassian.net/browse/BE-1368) [Pull #6390](https://github.com/EcoOnline/biome-app/pull/6390) BE-1368-prtr [ENV] PRTR threshold chart is empty even if data
