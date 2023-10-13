@@ -23,7 +23,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Initial Stuff done
         run: |
-          #Check if its a HOT, ESR OR FEA
           pr_pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
           pr_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
           type_of_PR=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
@@ -47,14 +46,6 @@ jobs:
             example="FIRST ISNT FOUND"
           fi
           echo $example
-
-
-
-
-
-
-
-
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
