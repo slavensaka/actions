@@ -34,7 +34,9 @@ jobs:
           echo ${first_changelog_entry}
           echo $PR_NUMBER
 
-          sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry}${{ github.event.number }}" CHANGELOG.md > CHANGELOG.md.new
+          second_changelog_entry = "[Pull #${PR_NUMBER}](${{ github.event.pull_request.url }}) ${{ github.event.pull_request.url }}"
+
+          sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry}${PR_NUMBER}" CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
