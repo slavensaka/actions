@@ -32,6 +32,7 @@
 * [[ESR/BE-1149]](https://dcm-team.atlassian.net/browse/BE-1149) [Pull #6349](https://github.com/EcoOnline/biome-app/pull/6349) BE-1149 ENV issue accessing setting
 New line to be inserted
 New line to be inserted
+New line to be inserted
 
 
 ## 8.1.11
