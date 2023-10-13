@@ -33,8 +33,9 @@ jobs:
           first_changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
           echo ${first_changelog_entry}
 
-
-          sed '/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry}${{ github.event.number }}' CHANGELOG.md > CHANGELOG.md.new
+          second_changelog_entry = $PR_NUMBER
+          echo second_changelog_entry
+          sed '/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry}${second_changelog_entry}' CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
