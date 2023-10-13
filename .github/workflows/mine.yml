@@ -18,7 +18,22 @@ jobs:
           pr_pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
           pr_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
 
+          #Check of its a HOT, ESR OR FEA
+          type_of_PR=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
+          second_half=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
 
+          echo "SHOULD BE EMPTY"
+          echo $type_of_PR
+          echo $second_half
+
+
+          if [[ $type_of_PR == "FEA" ]]; then
+            example= "FEA"
+          else
+            example= "IT'S EMPTY"
+          fi
+
+          echo $example
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
@@ -30,10 +45,6 @@ jobs:
           fi
 
           first_changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
-          # echo ${first_changelog_entry}
-          # echo $PR_NUMBER
-
-          echo ${{github.event.pull_request.head.ref}}
 
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
