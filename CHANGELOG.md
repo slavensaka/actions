@@ -38,6 +38,7 @@ $first_changelog_entry33
 * [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233)34
 * [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233)36
 * [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233)37
+* [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233)40 [Pull #40](https://github.com/slavensaka/actions/pull/40) BE-233-set Something
 
 ### Fixed
 * [[HOT/BE-1368]](https://dcm-team.atlassian.net/browse/BE-1368) [Pull #6390](https://github.com/EcoOnline/biome-app/pull/6390) BE-1368-prtr [ENV] PRTR threshold chart is empty even if data
