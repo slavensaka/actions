@@ -29,7 +29,7 @@ jobs:
             jira_link=""
           fi
 
-          changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
+          changelog_entry='\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})'
           echo ${changelog_entry}
 
           sed '/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;iNew line to be inserted' CHANGELOG.md > CHANGELOG.md.new
