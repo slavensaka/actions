@@ -29,8 +29,7 @@
 
 ### Fixed
 * [[ESR/BE-1285]](https://dcm-team.atlassian.net/browse/BE-1285) [Pull #6371](https://github.com/EcoOnline/biome-app/pull/6371) BE-1285 ENV templates fix
-* [[ESR/BE-1149]](https://dcm-team.atlassian.net/browse/BE-1149) [Pull #6349](https://github.com/EcoOnline/biome-app/pull/6349) BE-1149 ENV issue accessing setting
-
+* [[ESR/BE-1149]](https://dcm-team.atlassian.net/browse/BE-1149) [Pull #6349](https://github.com/EcoOnline/biome-app/pull/6349) BE-1149 ENV issue accessing settings
 
 ## 8.1.11
 ### Added
