@@ -5,6 +5,14 @@ on:
       - main
       - develop
     types: [closed]
+  push:
+    branches:
+      - main
+      - FEA/BE-233
+      - FEA/BE-233-some
+      - BE-233-some
+      - ESR/BE-233
+      - HOT/BE-233
 env:
   SLAV : Slaven
   PR_NUMBER: ${{ github.event.number }}
@@ -17,39 +25,27 @@ jobs:
         run: |
           pr_pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
           pr_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
-
-          #Check of its a HOT, ESR OR FEA
           type_of_PR=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
           second_half=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
-
           pr_branch_name=${{github.event.pull_request.head.ref}}
-          echo $t
+          first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}') # THIS IS TO CHECK FEA/ESR/HOT
+          second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}') # THIS CHECK SECOND IF BE-... EMPTY MEANS FEA/ESR/HOT IS NOT INCLUDED
 
-          echo "SHOULD BE EMPTY"
           echo $type_of_PR
           echo $second_half
-
-          first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}')
-          second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}')
-
+          echo $pr_branch_name
           echo $first
           echo $second
 
           if [ $first == "FEA" ]; then
-          # if [ $first == "FEA" ] && [ $pr_branch_name != "${VALUE}" ]; then
-
             if [[ -z $second ]]; then
               echo "SECOND IS EMPTY"
             fi
-
             example=$first
           else
             example="FIRST ISNT FOUND"
           fi
           echo $example
-
-
-
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
@@ -61,14 +57,13 @@ jobs:
           fi
 
           first_changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
-
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
           sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
 
-          mv CHANGELOG.md.new CHANGELOG.md
-          git add CHANGELOG.md
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Update CHANGELOG for PR #${pr_number}"
-          git push
+          # mv CHANGELOG.md.new CHANGELOG.md
+          # git add CHANGELOG.md
+          # git config --local user.email "action@github.com"
+          # git config --local user.name "GitHub Action"
+          # git commit -m "Update CHANGELOG for PR #${pr_number}"
+          # git push
