@@ -1,21 +1,21 @@
 name: ADD A CHANGELOG ENTRY
 on:
+	# Once a PR has been merge either into main or develop
   pull_request:
-  	# Once a PR has been merge either into main or develop
     branches:
       - main
       - develop
     types: [closed]
     # For easier testing
-  push:
-    branches:
-      - main
-      - develop
-      - FEA/BE-233
-      - FEA/BE-233-some
-      - BE-233-some
-      - ESR/BE-233
-      - HOT/BE-233
+  # push:
+  #   branches:
+  #     - main
+  #     - develop
+  #     - FEA/BE-233
+  #     - FEA/BE-233-some
+  #     - BE-233-some
+  #     - ESR/BE-233
+  #     - HOT/BE-233
     # END For easier testing
 jobs:
   update_changelog:
