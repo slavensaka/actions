@@ -1,41 +1,49 @@
-name: MINE OH MINE
+name: ADD A CHANGELOG ENTRY
 on:
   pull_request:
+  	# Once a PR has been merge either into main or develop
     branches:
       - main
       - develop
     types: [closed]
+    # For easier testing
   push:
     branches:
       - main
+      - develop
       - FEA/BE-233
       - FEA/BE-233-some
       - BE-233-some
       - ESR/BE-233
       - HOT/BE-233
-env:
-  SLAV : Slaven
-  PR_NUMBER: ${{ github.event.number }}
+    # END For easier testing
 jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Initial Stuff done
+      - name: Update changelog
         run: |
-          pr_pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
-          pr_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
-          type_of_PR=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
+          pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
+          pr_git_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
+          type_of_pr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
           second_half=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
+
           pr_branch_name=${{github.event.pull_request.head.ref}}
           first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}') # THIS IS TO CHECK FEA/ESR/HOT
           second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}') # THIS CHECK SECOND IF BE-... EMPTY MEANS FEA/ESR/HOT IS NOT INCLUDED
 
-          echo $type_of_PR
+          echo "SLIPKNOT"
+          echo $pod_name
+          echo $pr_git_number
+          echo $type_of_pr
           echo $second_half
           echo $pr_branch_name
           echo $first
           echo $second
+
+
+
 
           if [ $first == "FEA" ]; then
             if [[ -z $second ]]; then
@@ -49,14 +57,14 @@ jobs:
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
-          if [[ $pr_number =~ ^$jira_pattern ]]; then
+          if [[ $pr_git_number =~ ^$jira_pattern ]]; then
             jira_ticket="${BASH_REMATCH[0]}"
-            jira_link="https://ecoonline.atlassian.net/browse/${pr_pod_name}-${jira_ticket}"
+            jira_link="https://ecoonline.atlassian.net/browse/${pod_name}-${jira_ticket}"
           else
             jira_link=""
           fi
 
-          first_changelog_entry="\* [["FEA/${pr_pod_name}-${jira_ticket}"]](${jira_link})"
+          first_changelog_entry="\* [["FEA/${pod_name}-${jira_ticket}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
           sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
@@ -65,5 +73,5 @@ jobs:
           # git add CHANGELOG.md
           # git config --local user.email "action@github.com"
           # git config --local user.name "GitHub Action"
-          # git commit -m "Update CHANGELOG for PR #${pr_number}"
+          # git commit -m "Update CHANGELOG for PR #${pr_git_number}"
           # git push
