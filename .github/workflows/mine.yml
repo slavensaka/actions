@@ -56,7 +56,7 @@ jobs:
 
 
           first_changelog_entry="\* [["${typeOfPr}/${podsName}-${jiraTicketNumber}"]](${jira_link})"
-          second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
+          second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.commits[0].message }}
 
           # echo ${searchBranchName}
           # echo ${first_changelog_entry}
