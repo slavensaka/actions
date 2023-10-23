@@ -48,7 +48,7 @@ jobs:
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
           if [[ $prGitNum =~ ^$jira_pattern ]]; then
-            jira_link="https://ecoonline.atlassian.net/browse/${jiraTicketNumber}"
+            jira_link="https://ecoonline.atlassian.net/browse/${second}-${jiraTicketNumber}"
           else
             jira_link=""
           fi
