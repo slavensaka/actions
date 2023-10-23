@@ -13,15 +13,8 @@
 
 ## Main
 ### Added
-* [[FEA/BE-233-fixed-code-62]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-62) [Pull #62](https://github.com/slavensaka/actions/pull/62) Test this code github actions
-* [[FEA/BE-233-fixed-code-63]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-63) [Pull #63](https://github.com/slavensaka/actions/pull/63) Test this code github actions
-* [[FEA/BE-233-fixed-code-67]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-67) [Pull #67](https://github.com/slavensaka/actions/pull/67) Test this code github actions
-* [[FEA/BE-233-fixed-code-68]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-68) [Pull #68](https://github.com/slavensaka/actions/pull/68) Test this code github actions
-* [[FEA/BE-233-fixed-code-69]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-69) [Pull #69](https://github.com/slavensaka/actions/pull/69) Test this code github actions
-* [[FEA/BE-233-fixed-code-70]](https://ecoonline.atlassian.net/browse/233) [Pull #70](https://github.com/slavensaka/actions/pull/70) Test this code github actions
 
 ### Fixed
-* [[FEA/BE-233-fixed-code-]]() [Pull #60](https://github.com/slavensaka/actions/pull/60) Fea/be 233 fixed code
 
 ## 8.1.13
 ### Added
@@ -54,10 +47,6 @@
 
 ## 8.1.11
 ### Added
-* [[FEA/FEA/BE-233]](https://ecoonline.atlassian.net/browse/FEA/BE-233) [Pull #53](https://github.com/slavensaka/actions/pull/53) FEA/BE-233-fixed-code This is fixed code
-* [[FEA/BE-233-fixed-code-]]() [Pull #54](https://github.com/slavensaka/actions/pull/54) Added new code
-* [[FEA/BE-233-fixed-code-]]() [Pull #55](https://github.com/slavensaka/actions/pull/55) Be 233 fixed code
-* [[FEA/BE-233-fixed-code-233]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-233) [Pull #59](https://github.com/slavensaka/actions/pull/59) BE-233-fixed-code test
 
 ### Fixed
 * [[HOT/BE-1368]](https://dcm-team.atlassian.net/browse/BE-1368) [Pull #6390](https://github.com/EcoOnline/biome-app/pull/6390) BE-1368-prtr [ENV] PRTR threshold chart is empty even if data
