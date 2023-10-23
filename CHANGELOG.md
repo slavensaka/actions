@@ -14,6 +14,7 @@
 ## Main
 ### Added
 * [[FEA/BE-233-fixed-code-71]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-233) [Pull #71](https://github.com/slavensaka/actions/pull/71) Test this code github actions
+* [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233) [Pull #72](https://github.com/slavensaka/actions/pull/72) Test this code github actions
 
 ### Fixed
 
