@@ -69,3 +69,12 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push
+
+      - name: Notify Teams Channel
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+            github-token: ${{ github.token }} # this will use the runner's token.
+            ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
+            notification-summary: ${{ github.event.pull_request.title }}
+            notification-color: 17a2b8
+            timezone: Europe/Dublin
