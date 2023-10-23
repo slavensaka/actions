@@ -15,7 +15,7 @@ jobs:
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
-          prGitNum=${ github.event.number }
+          prGitNum=${{github.event.number }}
           # target branch = base_ref
           # source branch = head_ref
           if [ $GITHUB_BASE_REF == 'main' ]; then
