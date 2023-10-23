@@ -16,12 +16,15 @@ jobs:
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
           prGitNum=${{github.event.number }}
-          jiraTicketNumber=$(echo "$typeOfPr" | cut -d '-' -f 2)
+          jiraTicketNumber=$(echo "$typeOfPr" | cut -d '-' -f 1)
+          xjiraTicketNumber=$(echo "$typeOfPr" | cut -d '-' -f 2)
           # xtypeOfPr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
           # cleanBranchName=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
+          echo $typeOfPr
+          echo $second
+          echo $prGitNum
           echo $jiraTicketNumber
-          # echo $xtypeOfPr
-          # echo $cleanBranchName
+          echo $xjiraTicketNumber
 
           # target branch = base_ref
           # source branch = head_ref
