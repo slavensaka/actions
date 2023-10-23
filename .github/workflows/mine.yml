@@ -21,7 +21,6 @@ jobs:
           first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}') # THIS IS TO CHECK FEA/ESR/HOT
           second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}') # THIS CHECK SECOND IF BE-... EMPTY MEANS FEA/ESR/HOT IS NOT INCLUDED
 
-          echo "SLIPKNOT"
           echo $pod_name
           echo $pr_git_number
           echo $type_of_pr
@@ -57,9 +56,9 @@ jobs:
 
           sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
 
-          # mv CHANGELOG.md.new CHANGELOG.md
-          # git add CHANGELOG.md
-          # git config --local user.email "action@github.com"
-          # git config --local user.name "GitHub Action"
-          # git commit -m "Update CHANGELOG for PR #${pr_git_number}"
-          # git push
+          mv CHANGELOG.md.new CHANGELOG.md
+          git add CHANGELOG.md
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update CHANGELOG for PR #${pr_git_number}"
+          git push
