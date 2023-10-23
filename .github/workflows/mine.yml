@@ -12,53 +12,60 @@ jobs:
       - uses: actions/checkout@v3
       - name: Update changelog
         run: |
-          pod_name=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 1)
-          pr_git_number=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
-          type_of_pr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
-          second_half=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
+          fullBranchName=${{github.event.pull_request.head.ref}}
+          typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
+          second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
+          prGitNum=${{github.event.number }}
+          podsName=$(echo "$second" | cut -d '-' -f 1)
+          jiraTicketNumber=$(echo "$second" | cut -d '-' -f 2)
 
-          pr_branch_name=${{github.event.pull_request.head.ref}}
-          first=$(echo "$pr_branch_name" | awk -F'/' '{print $1}') # THIS IS TO CHECK FEA/ESR/HOT
-          second=$(echo "$pr_branch_name" | awk -F'/' '{print $2}') # THIS CHECK SECOND IF BE-... EMPTY MEANS FEA/ESR/HOT IS NOT INCLUDED
-
-          echo $pod_name
-          echo $pr_git_number
-          echo $type_of_pr
-          echo $second_half
-          echo $pr_branch_name
-          echo $first
-          echo $second
-
-
-
-
-          if [ $first == "FEA" ]; then
-            if [[ -z $second ]]; then
-              echo "SECOND IS EMPTY"
-            fi
-            example=$first
+          # target branch = base_ref
+          # source branch = head_ref
+          if [ $GITHUB_BASE_REF == 'main' ]; then
+          	searchBranchName="## Main"
+          elif [ $GITHUB_BASE_REF == 'develop' ]; then
+          	searchBranchName="## Development"
           else
-            example="FIRST ISNT FOUND"
+          	searchBranchName=""
           fi
-          echo $example
+
+
+          if [ $typeOfPr == "FEA" ]; then
+            # if [[ -z $second ]]; then
+            #   echo "SECOND IS EMPTY"
+            # fi
+            searchTypeOfPr="### Added"
+          elif [ $typeOfPr == 'ESR' ]; then
+          	searchTypeOfPr="### Fixed"
+          elif [ $typeOfPr == 'HOT' ]; then
+          	searchTypeOfPr="### Fixed"
+          else
+            searchTypeOfPr="NOT_FOUND"
+          fi
+          # echo $example
+
+
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
-          if [[ $pr_git_number =~ ^$jira_pattern ]]; then
-            jira_ticket="${BASH_REMATCH[0]}"
-            jira_link="https://ecoonline.atlassian.net/browse/${pod_name}-${jira_ticket}"
+          if [[ $prGitNum =~ ^$jira_pattern ]]; then
+            jira_link="https://ecoonline.atlassian.net/browse/${podsName}-${jiraTicketNumber}"
           else
             jira_link=""
           fi
 
-          first_changelog_entry="\* [["FEA/${pod_name}-${jira_ticket}"]](${jira_link})"
+
+          first_changelog_entry="\* [["${typeOfPr}/${podsName}-${jiraTicketNumber}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
-          sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
+          # echo ${searchBranchName}
+          # echo ${first_changelog_entry}
+          # echo ${second_changelog_entry}
+          sed "/^${searchBranchName}/,/^${searchTypeOfPr}/!b;/^${searchTypeOfPr}/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Update CHANGELOG for PR #${pr_git_number}"
+          git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push

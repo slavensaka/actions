@@ -3,6 +3,28 @@
 ## Development
 
 ### Added
+
+### Fixed
+
+* [[ESR/BE-1370]](https://dcm-team.atlassian.net/browse/BE-1370) [Pull #6393](https://github.com/EcoOnline/biome-app/pull/6393) BE-1370 EPR Importer is 404'ing
+* [[ESR/BE-1208]](https://dcm-team.atlassian.net/browse/BE-1208) [Pull #6369](https://github.com/EcoOnline/biome-app/pull/6369) BE-1208 ENV dup points importing - scrub points
+* [[ESR/BE-1285]](https://dcm-team.atlassian.net/browse/BE-1285) [Pull #6371](https://github.com/EcoOnline/biome-app/pull/6371) BE-1285 ENV templates fix
+* [[ESR/BE-1149]](https://dcm-team.atlassian.net/browse/BE-1149) [Pull #6349](https://github.com/EcoOnline/biome-app/pull/6349) BE-1149 ENV issue accessing settings
+
+## Main
+### Added
+
+### Fixed
+
+## 8.1.13
+### Added
+
+### Fixed
+* [[HOT/BE-1418]](https://dcm-team.atlassian.net/browse/BE-1418) [Pull #6403](https://github.com/EcoOnline/biome-app/pull/6403) Removed ability to toggle login password field
+* [[ESR/BE-968]](https://dcm-team.atlassian.net/browse/BE-968) [Pull #6398](https://github.com/EcoOnline/biome-app/pull/6398) BE-968 EPR Fix for epr sales file download
+
+## 8.1.12
+### Added
 * [[FEA/BE-1163]](https://dcm-team.atlassian.net/browse/BE-1163) [Pull #6352](https://github.com/EcoOnline/biome-app/pull/6352) Implemented prism input component
 * [[FEA/BE-1259]](https://dcm-team.atlassian.net/browse/BE-1259) [Pull #6355](https://github.com/EcoOnline/biome-app/pull/6355) Implemented prism textarea component
 
@@ -23,13 +45,6 @@
 * [[ESR/BE-1285]](https://dcm-team.atlassian.net/browse/BE-1285) [Pull #6371](https://github.com/EcoOnline/biome-app/pull/6371) BE-1285 ENV templates fix
 * [[ESR/BE-1149]](https://dcm-team.atlassian.net/browse/BE-1149) [Pull #6349](https://github.com/EcoOnline/biome-app/pull/6349) BE-1149 ENV issue accessing settings
 
-## Main
-
-### Added
-
-### Fixed
-* [[ESR/BE-1285]](https://dcm-team.atlassian.net/browse/BE-1285) [Pull #6371](https://github.com/EcoOnline/biome-app/pull/6371) BE-1285 ENV templates fix
-* 
 ## 8.1.11
 ### Added
 
