@@ -3,6 +3,7 @@
 ## Development
 
 ### Added
+* [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233) [Pull #73](https://github.com/slavensaka/actions/pull/73) Fea/be 233 fixed code
 
 ### Fixed
 
