@@ -5,6 +5,7 @@
 ### Added
 * [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233) [Pull #73](https://github.com/slavensaka/actions/pull/73) Fea/be 233 fixed code
 * [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233) [Pull #76](https://github.com/slavensaka/actions/pull/76) 
+* [[FEA/BE-233]](https://ecoonline.atlassian.net/browse/BE-233) [Pull #77](https://github.com/slavensaka/actions/pull/77) 
 
 ### Fixed
 
