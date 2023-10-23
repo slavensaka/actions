@@ -26,6 +26,17 @@ jobs:
           echo $typeOfPr
           echo $cleanBranchName
 
+          # target branch = base_ref
+          # source branch = head_ref
+          if: ${{ github.base_ref == 'main' }} then
+            say="main brancy"
+          elif ${{ github.base_ref == 'develop' }} then
+            say="develop brancy"
+          else
+            say="other brancy"
+          fi
+          echo say
+          echo $GITHUB_BASE_REF
 
           if [ $first == "FEA" ]; then
             if [[ -z $second ]]; then
@@ -36,6 +47,7 @@ jobs:
             example="FIRST ISNT FOUND"
           fi
           echo $example
+
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
