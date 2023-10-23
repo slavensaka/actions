@@ -13,15 +13,9 @@ jobs:
       - name: Update changelog
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
-          firstTypeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
+          typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
-
-          prGitNum=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
-          typeOfPr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
-          cleanBranchName=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
-
-
-
+          prGitNum=${ github.event.number }
           # target branch = base_ref
           # source branch = head_ref
           if [ $GITHUB_BASE_REF == 'main' ]; then
@@ -33,19 +27,19 @@ jobs:
           fi
 
 
-          if [ $firstTypeOfPr == "FEA" ]; then
+          if [ $typeOfPr == "FEA" ]; then
             # if [[ -z $second ]]; then
             #   echo "SECOND IS EMPTY"
             # fi
-            example="FEA"
-          elif [ $firstTypeOfPr == 'ESR' ]; then
-          	example="ESR"
-          elif [ $firstTypeOfPr == 'HOT' ]; then
-          	example="HOT"
+            searchTypeOfPr="### Added"
+          elif [ $typeOfPr == 'ESR' ]; then
+          	searchTypeOfPr="### Fixed"
+          elif [ $typeOfPr == 'HOT' ]; then
+          	searchTypeOfPr="### Fixed"
           else
-            example="NOT_FOUND"
+            searchTypeOfPr="NOT_FOUND"
           fi
-          echo $example
+          # echo $example
 
 
 
@@ -54,19 +48,19 @@ jobs:
           if [[ $prGitNum =~ ^$jira_pattern ]]; then
             # jira_ticket="${BASH_REMATCH[0]}"
             jira_ticket=$prGitNum
-            jira_link="https://ecoonline.atlassian.net/browse/${cleanBranchName}-${jira_ticket}"
+            jira_link="https://ecoonline.atlassian.net/browse/${second}-${jira_ticket}"
           else
             jira_link=""
           fi
 
 
-          first_changelog_entry="\* [["FEA/${cleanBranchName}-${jira_ticket}"]](${jira_link})"
+          first_changelog_entry="\* [["${typeOfPr}/${second}-${jira_ticket}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
-          echo ${searchBranchName}
-          echo ${first_changelog_entry}
-          echo ${second_changelog_entry}
-          sed "/^${searchBranchName}/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
+          # echo ${searchBranchName}
+          # echo ${first_changelog_entry}
+          # echo ${second_changelog_entry}
+          sed "/^${searchBranchName}/,/^${searchTypeOfPr}/!b;/^${searchTypeOfPr}/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
