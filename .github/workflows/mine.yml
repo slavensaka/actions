@@ -16,6 +16,7 @@ jobs:
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
           prGitNum=${{github.event.number }}
+          podsName=$(echo "$second" | cut -d '-' -f 1)
           jiraTicketNumber=$(echo "$second" | cut -d '-' -f 2)
 
           # target branch = base_ref
@@ -48,13 +49,13 @@ jobs:
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
           if [[ $prGitNum =~ ^$jira_pattern ]]; then
-            jira_link="https://ecoonline.atlassian.net/browse/${second}-${jiraTicketNumber}"
+            jira_link="https://ecoonline.atlassian.net/browse/${podsName}-${jiraTicketNumber}"
           else
             jira_link=""
           fi
 
 
-          first_changelog_entry="\* [["${typeOfPr}/${second}-${prGitNum}"]](${jira_link})"
+          first_changelog_entry="\* [["${typeOfPr}/${podsName}-${jiraTicketNumber}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
           # echo ${searchBranchName}
