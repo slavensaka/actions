@@ -15,6 +15,7 @@
 ### Added
 * [[FEA/BE-233-fixed-code-62]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-62) [Pull #62](https://github.com/slavensaka/actions/pull/62) Test this code github actions
 * [[FEA/BE-233-fixed-code-63]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-63) [Pull #63](https://github.com/slavensaka/actions/pull/63) Test this code github actions
+* [[FEA/BE-233-fixed-code-67]](https://ecoonline.atlassian.net/browse/BE-233-fixed-code-67) [Pull #67](https://github.com/slavensaka/actions/pull/67) Test this code github actions
 
 ### Fixed
 * [[FEA/BE-233-fixed-code-]]() [Pull #60](https://github.com/slavensaka/actions/pull/60) Fea/be 233 fixed code
