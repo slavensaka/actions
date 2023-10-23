@@ -19,7 +19,7 @@ jobs:
           jiraTicketNumber = 	$(echo "$typeOfPr" | cut -d '-' -f 2)
           # xtypeOfPr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
           # cleanBranchName=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
-          echo $jiraTicketNumber
+          echo$jiraTicketNumber
           # echo $xtypeOfPr
           # echo $cleanBranchName
 
