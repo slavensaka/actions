@@ -16,13 +16,7 @@ jobs:
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
           prGitNum=${{github.event.number }}
-          jiraTicketNumber=$(echo "$second" | cut -d '-' -f 1)
-          xjiraTicketNumber=$(echo "$second" | cut -d '-' -f 2)
-          # xtypeOfPr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
-          # cleanBranchName=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
-
-          echo $jiraTicketNumber
-          echo $xjiraTicketNumber
+          jiraTicketNumber=$(echo "$second" | cut -d '-' -f 2)
 
           # target branch = base_ref
           # source branch = head_ref
@@ -54,7 +48,7 @@ jobs:
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
           if [[ $prGitNum =~ ^$jira_pattern ]]; then
-            jira_link="https://ecoonline.atlassian.net/browse/${second}-${prGitNum}"
+            jira_link="https://ecoonline.atlassian.net/browse/${jiraTicketNumber}"
           else
             jira_link=""
           fi
