@@ -20,6 +20,7 @@
 * [[FEA/EPC-9999]](https://ecoonline.atlassian.net/browse/EPC-9999) [Pull #80](https://github.com/slavensaka/actions/pull/80) FEA/EPC-9999 Test again
 
 ### Fixed
+* [[ESR/EPC-2234]](https://ecoonline.atlassian.net/browse/EPC-2234) [Pull #81](https://github.com/slavensaka/actions/pull/81) ESR/EPC-2234 Testing one more time
 
 ## 8.1.13
 ### Added
