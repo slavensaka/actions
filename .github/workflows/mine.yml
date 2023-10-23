@@ -28,9 +28,9 @@ jobs:
 
           # target branch = base_ref
           # source branch = head_ref
-          if: ${{ github.base_ref == 'main' }} then
+          if[ github.base_ref == 'main' ]then
             say="main brancy"
-          elif ${{ github.base_ref == 'develop' }} then
+          elif [ github.base_ref == 'develop' ] then
             say="develop brancy"
           else
             say="other brancy"
