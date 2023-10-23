@@ -16,6 +16,15 @@ jobs:
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
           prGitNum=${{github.event.number }}
+
+          xprGitNum=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
+          xtypeOfPr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
+          cleanBranchName=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
+
+          echo $xprGitNum
+          echo $xtypeOfPr
+          echo $cleanBranchName
+
           # target branch = base_ref
           # source branch = head_ref
           if [ $GITHUB_BASE_REF == 'main' ]; then
