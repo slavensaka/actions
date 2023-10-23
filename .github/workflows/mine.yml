@@ -13,63 +13,64 @@ jobs:
       - name: Update changelog
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
-          first=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
+          firstTypeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
           second=$(echo "$fullBranchName" | awk -F'/' '{print $2}')
-          echo $fullBranchName
-          echo $first
-          echo $second
 
           prGitNum=$(echo "${{ github.event.pull_request.title }}" | cut -d '-' -f 2)
           typeOfPr=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 1)
           cleanBranchName=$(echo "${{github.event.pull_request.head.ref}}" | cut -d '/' -f 2)
-          echo $prGitNum
-          echo $typeOfPr
-          echo $cleanBranchName
+
 
 
           # target branch = base_ref
           # source branch = head_ref
-          if [ github.base_ref == 'main' ]; then
-            say="main brancy"
-          elif [ github.base_ref == 'develop' ]; then
-            say="develop brancy"
+          if [ $GITHUB_BASE_REF == 'main' ]; then
+          	searchBranchName="## Main"
+          elif [ $GITHUB_BASE_REF == 'develop' ]; then
+          	searchBranchName="## Development"
           else
-            say="other brancy"
+          	searchBranchName=""
           fi
-          echo say
-          echo $GITHUB_BASE_REF
 
 
-
-
-          if [ $first == "FEA" ]; then
-            if [[ -z $second ]]; then
-              echo "SECOND IS EMPTY"
-            fi
-            example=$first
+          if [ $firstTypeOfPr == "FEA" ]; then
+            # if [[ -z $second ]]; then
+            #   echo "SECOND IS EMPTY"
+            # fi
+            example="FEA"
+          elif [ $firstTypeOfPr == 'ESR' ]; then
+          	example="ESR"
+          elif [ $firstTypeOfPr == 'HOT' ]; then
+          	example="HOT"
           else
-            example="FIRST ISNT FOUND"
+            example="NOT_FOUND"
           fi
           echo $example
+
 
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
           if [[ $prGitNum =~ ^$jira_pattern ]]; then
-            jira_ticket="${BASH_REMATCH[0]}"
+            # jira_ticket="${BASH_REMATCH[0]}"
+            jira_ticket=$prGitNum
             jira_link="https://ecoonline.atlassian.net/browse/${cleanBranchName}-${jira_ticket}"
           else
             jira_link=""
           fi
 
+
           first_changelog_entry="\* [["FEA/${cleanBranchName}-${jira_ticket}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
-          sed "/^## Main/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
+          echo ${searchBranchName}
+          echo ${first_changelog_entry}
+          echo ${second_changelog_entry}
+          sed "/^${searchBranchName}/,/^### Fixed/!b;/^### Fixed/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Update CHANGELOG for PR #${prGitNum}"
+          git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push
