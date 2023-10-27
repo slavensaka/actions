@@ -13,8 +13,8 @@ jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
+    	-	uses: actions/checkout@v4
       - name: Update changelog
-      -	uses: actions/checkout@v4
         # env:
         #   token: ${{ secrets.REPO_TOKEN }}
         #   ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
