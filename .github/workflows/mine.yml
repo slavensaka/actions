@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update changelog
-      	uses: actions/checkout@v4
+      -	uses: actions/checkout@v4
         with:
           token: ${{ secrets.REPO_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if a ny
