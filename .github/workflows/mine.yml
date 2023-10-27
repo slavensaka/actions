@@ -13,8 +13,9 @@ jobs:
       - name: Update changelog
         env:
           token: ${{secrets.REPO_TOKEN}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+          ssh-key: ${{secrets.MY_SECRET_DEPLOY_KEY}}
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
