@@ -16,6 +16,8 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
           ssh-key: ${{secrets.MY_SECRET_DEPLOY_KEY}}
+          persist-credentials: false
+
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
@@ -68,8 +70,10 @@ jobs:
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          #git config user.name github-actions
+          #git config user.email github-actions@github.com
+          git config --local user.email "slavensakacic@gmail.com"
+          git config --local user.name "Slaven Saka"
           git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push
 
