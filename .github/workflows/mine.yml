@@ -9,6 +9,8 @@ jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
+      - name: Git Commit Data
+        uses: rlespinasse/git-commit-data-action@v1.5.0
       - uses: actions/checkout@v4
       - name: Update changelog
         env:
@@ -80,3 +82,5 @@ jobs:
             notification-summary: ${{ github.event.pull_request.title }}
             notification-color: 17a2b8
             timezone: Europe/Dublin
+
+
