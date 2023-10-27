@@ -64,6 +64,7 @@ jobs:
       - name: Notify Teams Channel
         uses: jdcargile/ms-teams-notification@v1.3
         with:
+            token: ${{secrets.REPO_TOKEN}}
             github-token: ${{ github.token }} # this will use the runner's token.
             ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
             notification-summary: ${{ github.event.pull_request.title }}
