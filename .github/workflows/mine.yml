@@ -1,24 +1,24 @@
 name: ADD A CHANGELOG ENTRY
 on:
-env:
-  token: ${{ secrets.REPO_TOKEN }}
-  ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
-  persist-credentials: false
   pull_request:
     branches:
       - main
       - develop
     types: [closed]
+env:
+  token: ${{ secrets.REPO_TOKEN }}
+  ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
+  persist-credentials: false
 jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
-    	-	uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Update changelog
-        # env:
-        #   token: ${{ secrets.REPO_TOKEN }}
-        #   ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
-        #   persist-credentials: false
+        env:
+          token: ${{secrets.REPO_TOKEN}}
+          ssh-key: ${{secrets.MY_SECRET_DEPLOY_KEY}}
+          persist-credentials: false
 
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
