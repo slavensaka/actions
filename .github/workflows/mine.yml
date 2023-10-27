@@ -1,5 +1,9 @@
 name: ADD A CHANGELOG ENTRY
 on:
+env:
+  token: ${{ secrets.REPO_TOKEN }}
+  ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
+  persist-credentials: false
   pull_request:
     branches:
       - main
@@ -11,12 +15,10 @@ jobs:
     steps:
       - name: Update changelog
       -	uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.REPO_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if a ny
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
-          persist-credentials: false
+        # env:
+        #   token: ${{ secrets.REPO_TOKEN }}
+        #   ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
+        #   persist-credentials: false
 
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
