@@ -13,6 +13,8 @@ jobs:
       - name: Update changelog
         env:
           token: ${{secrets.REPO_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
@@ -58,8 +60,8 @@ jobs:
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "slaven@biome.net"
+          git config --local user.name "Slaven Saka"
           git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push
 
