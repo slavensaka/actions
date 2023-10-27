@@ -9,10 +9,10 @@ jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
-      - name: Update changelog
-        uses: actions/checkout@v3
-        with:
+      - uses: actions/checkout@v3
+      - env:
           token: ${{secrets.REPO_TOKEN}}
+      - name: Update changelog
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
@@ -66,7 +66,6 @@ jobs:
       - name: Notify Teams Channel
         uses: jdcargile/ms-teams-notification@v1.3
         with:
-            token: ${{secrets.REPO_TOKEN}}
             github-token: ${{ github.token }} # this will use the runner's token.
             ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
             notification-summary: ${{ github.event.pull_request.title }}
