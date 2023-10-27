@@ -29,10 +29,8 @@ jobs:
           	searchBranchName=""
           fi
 
-
           if [ $typeOfPr == "FEA" ]; then
             # if [[ -z $second ]]; then
-            #   echo "SECOND IS EMPTY"
             # fi
             searchTypeOfPr="### Added"
           elif [ $typeOfPr == 'ESR' ]; then
@@ -42,9 +40,6 @@ jobs:
           else
             searchTypeOfPr="NOT_FOUND"
           fi
-          # echo $example
-
-
 
           #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
@@ -54,13 +49,9 @@ jobs:
             jira_link=""
           fi
 
-
           first_changelog_entry="\* [["${typeOfPr}/${podsName}-${jiraTicketNumber}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
 
-          # echo ${searchBranchName}
-          # echo ${first_changelog_entry}
-          # echo ${second_changelog_entry}
           sed "/^${searchBranchName}/,/^${searchTypeOfPr}/!b;/^${searchTypeOfPr}/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
 
           mv CHANGELOG.md.new CHANGELOG.md
