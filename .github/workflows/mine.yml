@@ -10,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - with:
-          token: ${{secrets.REPO_TOKEN}}
-          github-token: ${{ github.token }} # this will use the runner's token.
+      with:
+        token: ${{secrets.REPO_TOKEN}}
       - name: Update changelog
-
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
