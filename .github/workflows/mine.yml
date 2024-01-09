@@ -89,5 +89,6 @@ jobs:
             notification-summary: ${{ github.event.pull_request.title }}
             notification-color: 17a2b8
             timezone: Europe/Dublin
+            token: ${{ secrets.BUILD_SVC_PAT }}
 
 
