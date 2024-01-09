@@ -7,7 +7,6 @@ on:
     types: [closed]
 env:
   token: ${{ secrets.REPO_TOKEN }}
-  ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
 jobs:
   update_changelog:
     runs-on: ubuntu-latest
