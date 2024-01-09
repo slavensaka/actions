@@ -11,13 +11,13 @@ jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: Update changelog
-        env:
-          token: ${{secrets.REPO_TOKEN}}
-          ssh-key: ${{secrets.MY_SECRET_DEPLOY_KEY}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: false
+      - uses: actions/checkout@v4
+        # env:
+        #   token: ${{secrets.REPO_TOKEN}}
+        #   ssh-key: ${{secrets.MY_SECRET_DEPLOY_KEY}}
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   # persist-credentials: false
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
@@ -79,9 +79,6 @@ jobs:
           # git config user.name "Slaven Saka"
           git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push -f
-
-      - name: Notify Teams Channel
-        uses: jdcargile/ms-teams-notification@v1.3
         with:
             github-token: ${{ github.token }} # this will use the runner's token.
             ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
@@ -89,5 +86,15 @@ jobs:
             notification-color: 17a2b8
             timezone: Europe/Dublin
             token: ${{ secrets.BUILD_SVC_PAT }}
+
+      # - name: Notify Teams Channel
+      #   uses: jdcargile/ms-teams-notification@v1.3
+      #   with:
+      #       github-token: ${{ github.token }} # this will use the runner's token.
+      #       ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
+      #       notification-summary: ${{ github.event.pull_request.title }}
+      #       notification-color: 17a2b8
+      #       timezone: Europe/Dublin
+      #       token: ${{ secrets.BUILD_SVC_PAT }}
 
 
