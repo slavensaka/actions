@@ -20,10 +20,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           persist-credentials: false
-        with:
-          github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
-          token: ${{ secrets.REPO_TOKEN }}
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
@@ -85,7 +81,10 @@ jobs:
           # git config user.name "Slaven Saka"
           git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push -f
-
+        with:
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
+          token: ${{ secrets.REPO_TOKEN }}
       # - name: Notify Teams Channel
       #   uses: jdcargile/ms-teams-notification@v1.3
       #   with:
