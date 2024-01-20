@@ -1,25 +1,18 @@
-name: ADD A CHANGELOG ENTRY
+name: Add a changelog entry
 on:
   pull_request:
     branches:
       - main
       - develop
     types: [closed]
-env:
-  token: ${{ secrets.REPO_TOKEN }}
-  ssh-key: ${{ secrets.MY_SECRET_DEPLOY_KEY }}
 jobs:
   update_changelog:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Update changelog
-        env:
-          token: ${{secrets.REPO_TOKEN}}
-          ssh-key: ${{secrets.MY_SECRET_DEPLOY_KEY}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          persist-credentials: false
+      - name: Update changelog file
         run: |
           fullBranchName=${{github.event.pull_request.head.ref}}
           typeOfPr=$(echo "$fullBranchName" | awk -F'/' '{print $1}')
@@ -27,9 +20,6 @@ jobs:
           prGitNum=${{github.event.number }}
           podsName=$(echo "$second" | cut -d '-' -f 1)
           jiraTicketNumber=$(echo "$second" | cut -d '-' -f 2)
-
-          # target branch = base_ref
-          # source branch = head_ref
           if [ $GITHUB_BASE_REF == 'main' ]; then
           	searchBranchName="## Main"
           elif [ $GITHUB_BASE_REF == 'develop' ]; then
@@ -37,10 +27,7 @@ jobs:
           else
           	searchBranchName=""
           fi
-
           if [ $typeOfPr == "FEA" ]; then
-            # if [[ -z $second ]]; then
-            # fi
             searchTypeOfPr="### Added"
           elif [ $typeOfPr == 'ESR' ]; then
           	searchTypeOfPr="### Fixed"
@@ -49,8 +36,6 @@ jobs:
           else
             searchTypeOfPr="NOT_FOUND"
           fi
-
-          #check if the PR title has a JIRA ticket number at the beginning
           jira_pattern="[0-9]+"
           if [[ $prGitNum =~ ^$jira_pattern ]]; then
             jira_link="https://ecoonline.atlassian.net/browse/${podsName}-${jiraTicketNumber}"
@@ -60,38 +45,15 @@ jobs:
 
           first_changelog_entry="\* [["${typeOfPr}/${podsName}-${jiraTicketNumber}"]](${jira_link})"
           second_changelog_entry="[Pull #${{ github.event.number }}](${{ github.event.pull_request.html_url }}) ${{ github.event.pull_request.title }}"
-
           sed "/^${searchBranchName}/,/^${searchTypeOfPr}/!b;/^${searchTypeOfPr}/!b;:a;n;/./ba;i${first_changelog_entry} ${second_changelog_entry}" CHANGELOG.md > CHANGELOG.md.new
-
-          # mv CHANGELOG.md.new CHANGELOG.md
-          # git add CHANGELOG.md
-          # git config --local user.email "action@github.com"
-          # git config --local user.name "GitHub Action"
-          # git commit -m "Updated CHANGELOG for PR #${prGitNum}"
-          #git push
 
           mv CHANGELOG.md.new CHANGELOG.md
           git add CHANGELOG.md
           git config user.name github-actions
           git config user.email github-actions@github.com
-          # git config --local user.email "slavensakacic@gmail.com"
-          # git config --local user.name "Slaven Saka"
-          #
-          # git config user.email "slavensakacic@gmail.com"
-          # git config user.name "Slaven Saka"
           git commit -m "Updated CHANGELOG for PR #${prGitNum}"
           git push -f
-        with:
-          github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
-          token: ${{ secrets.REPO_TOKEN }}
-      # - name: Notify Teams Channel
-      #   uses: jdcargile/ms-teams-notification@v1.3
-      #   with:
-      #       github-token: ${{ github.token }} # this will use the runner's token.
-      #       ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK }}
-      #       notification-summary: ${{ github.event.pull_request.title }}
-      #       notification-color: 17a2b8
-      #       timezone: Europe/Dublin
+
+
 
 
